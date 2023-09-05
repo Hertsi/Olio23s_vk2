@@ -1,25 +1,24 @@
 #include "game.h"
-#include <iostream>
-#include <cstdlib>
 #include <ctime>
 
 
-Game::Game(int max)
+Game::Game(int maxValue)
 {
-    std::srand(static_cast<unsigned>(std::time(nullptr)));
-    maxNumber = max;
-    randomNumber = std::rand() % maxNumber + 1;
-    numOfGuesses = 0;
+    maxNumber = maxValue;
+    std::cout << "GAME CONSTRUCTOR: Valitsi numeron " << maxNumber << " isoimmaksi mahdolliseksi." << std::endl;
 }
 
 Game::~Game()
 {
-
+    std::cout << "GAME DESTRUCTOR: Peli poistettu muistista!" << std::endl;
 }
 
 void Game::play()
 {
-    int guess;
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+    randomNumber = std::rand() % maxNumber + 1;
+    numOfGuesses = 0;
+  int guess;
     bool correctGuess = false;
 
     std::cout << "Tervetuloa arvauspeliin! Arvaa numero 1 ja " << maxNumber << "valilla." << std::endl;
@@ -36,14 +35,14 @@ void Game::play()
         } else if (guess > randomNumber) {
             std::cout << "Numero on liian suuri. Yrita uudelleen!" << std::endl;
         } else {
-            std::cout << "Onneksi olkoon! Arvasit oikein! (" << randomNumber << ") Sinulta kului " << numOfGuesses << " yritysta." << std::endl;
+            std::cout << "Onneksi olkoon! Arvasit oikein! (" << randomNumber << ")" << std::endl;
             correctGuess = true;
+        printGameResult();
         }
-    }
-    printGameResult();
-}
+      }
+  }
 
 void Game::printGameResult()
 {
-    std::cout << "Peli loppui! Tuhotaan peli voit yrittaa uudelleen." << std::endl;
+    std::cout << "Peli loppui! Sinulta kului " << numOfGuesses << " yritysta." << std::endl;
 }
